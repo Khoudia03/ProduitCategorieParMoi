@@ -1,0 +1,15 @@
+{
+    "name": "cisse/categorie-produit_poo",
+    "autoload": {
+        "psr-4": {
+            "Cisse\\CategorieProduitPoo\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "khoudia03",
+            "email": "cissemamy21@gmail.com"
+        }
+    ],
+    "require": {}
+}
