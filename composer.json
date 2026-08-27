@@ -1,5 +1,5 @@
 {
-    "name": "cisse/categorie-produit_poo",
+    "name": "cisse03DEV/categorie-produit_poo",
     "autoload": {
         "psr-4": {
             "Cisse\\CategorieProduitPoo\\": "src/"
