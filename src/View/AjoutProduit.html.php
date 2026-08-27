@@ -1,6 +1,6 @@
 <?php
 use Cisse\CategorieProduitPoo\Core\Debug as DD;
-$categories = $categorieRepository ?? [];
+$categories = $donnees['categorieRepository'] ?? [];
 //DD::dd($categories);
 
 ?>
@@ -574,62 +574,6 @@ form.product-form{
                     <option value="<?= $categorie->getId()?>"><?php echo $categorie->getNom()?></option>
                         <?php endforeach; ?>
                 </select>
-            </div>
-
-            <div class="field">
-                <label>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10" />
-                        <path d="M8 12l3 3 6-6" />
-                    </svg>
-                    État du stock
-                </label>
-                <div class="status-toggle">
-                    <input type="radio" id="etat-stock" name="etat" value="en_stock" checked>
-                    <label for="etat-stock">En stock</label>
-                    <input type="radio" id="etat-rupture" name="etat" value="rupture">
-                    <label for="etat-rupture">En rupture</label>
-                </div>
-            </div>
-
-            <div class="field">
-                <label for="description">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
-                        <polyline points="14 2 14 8 20 8" />
-                        <line x1="16" y1="13" x2="8" y2="13" />
-                        <line x1="16" y1="17" x2="8" y2="17" />
-                    </svg>
-                    Description <span style="color:var(--text-low); text-transform:none; font-weight:400; letter-spacing:0;">(optionnel)</span>
-                </label>
-                <textarea id="description" name="description" placeholder="Détails visibles sur la fiche produit du catalogue…"></textarea>
-            </div>
-
-            <!-- Bloc interne : référence & note réservées à l'équipe -->
-            <div class="internal-field">
-                <div class="field-title">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                        <path d="M7 11V7a5 5 0 0110 0v4" />
-                    </svg>
-                    Informations internes
-                    <span class="tag">Usage équipe</span>
-                </div>
-                <div class="field-row">
-                    <div class="field">
-                        <label for="reference-interne">Référence interne (SKU)</label>
-                        <input type="text" id="reference-interne" name="reference_interne" value="auto-générée à l'enregistrement" readonly>
-                    </div>
-                    <div class="field">
-                        <label for="fournisseur">Fournisseur</label>
-                        <input type="text" id="fournisseur" name="fournisseur" placeholder="ex. Atelier Bio Sud">
-                    </div>
-                </div>
-                <div class="field">
-                    <label for="note-interne">Note interne</label>
-                    <textarea id="note-interne" name="note_interne" placeholder="Remarques logistiques, contact fournisseur, seuil de réappro…" style="min-height:56px;"></textarea>
-                    <span class="field-hint">Non visible sur le catalogue public — réservé à l'équipe de gestion des stocks.</span>
-                </div>
             </div>
 
             <div class="divider"></div>

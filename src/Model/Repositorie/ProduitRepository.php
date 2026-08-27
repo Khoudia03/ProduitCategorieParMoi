@@ -2,49 +2,47 @@
 namespace Cisse\CategorieProduitPoo\Model\Repositorie;
 use Cisse\CategorieProduitPoo\Core\Database;
 use Cisse\CategorieProduitPoo\Model\Entity\Produit as P;
+use Cisse\CategorieProduitPoo\Model\DTO\ProduitFilterDTO as PFDTO;
 use Cisse\CategorieProduitPoo\Core\Debug as DD;
 
 class ProduitRepository
 {
-    public static function getAllProduits(int $limite, int $offset, int $categorie = null): array
+    public static function getAllProduits(PFDTO $dto): array
     {
         $sql = "SELECT p.libelle, p.prix, p.quantiteStock as quantitestock, c.nom 
                 FROM produits p 
                 INNER JOIN categories c ON c.id = p.categorie_id";
 
         $jockers = [];
-        if ($categorie !== null) {
+        if ($dto->categorie !== null) {
             $sql .= " WHERE p.categorie_id = :id";
-            $jockers['id'] = $categorie;
+            $jockers['id'] = $dto->categorie;
         }
         $sql .= " LIMIT :limit OFFSET :offset";
-        $jockers['limit'] = $limite;
-        $jockers['offset'] = $offset;
+        $jockers['limit'] = $dto->limite;
+        $jockers['offset'] = $dto->offset;
         $results = Database::executeQuery($sql, $jockers, false);
         //DD::dd($results);
-        $produits = [];
-        foreach ($results as $result) {
-            $produits[] = P::toEntity($result);
-        }
+        $produits = array_map(
+            fn($result) => P::toEntity($result),
+            $results
+        );
         //DD::dd($produits);
         return $produits;
     }
-    public static function nbrProduit(int $limite, int $offset, int $categorie = null): int
+    public static function nbrProduit(PFDTO $dto): int
     {
         $sql = "SELECT COUNT(*) as total FROM produits p INNER JOIN categories c ON c.id = p.categorie_id";
 
         $jockers = [];
-        if ($categorie !== null) {
+        if ($dto->categorie !== null) {
             $sql .= " WHERE p.categorie_id = :id";
-            $jockers['id'] = $categorie;
+            $jockers['id'] = $dto->categorie;
         }
 
-        $sql .= " LIMIT :limit OFFSET :offset";
-        $jockers['limit'] = $limite;
-        $jockers['offset'] = $offset;
         $result = Database::executeQuery($sql, $jockers, false);
         //DD::dd($result);
-        return $result ? (int) $result->total : 0;
+        return $result ? (int) $result[0]->total : 0;
     }
     public static function saveProduit(array $produit): int
     {

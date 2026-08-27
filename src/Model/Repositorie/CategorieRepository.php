@@ -14,13 +14,11 @@ class CategorieRepository
 
         $resultats = Database::query($sql, false);
         
-
-        $categories = [];
-        foreach ($resultats as $ligne) 
-        {
-            $categories[] = C::toEntity($ligne);
-        }
-        // DD::dd($categories);
+        $categories = array_map(
+            fn($result) => C::toEntity($result),
+            $resultats
+        );
+        //DD::dd($categories);
         return $categories;
     }
 }
